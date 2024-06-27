@@ -22,7 +22,7 @@ const (
 var chaves_desejadas = map[string]bool{
 	"13zb1hQbWVsc2S7ZTZnP2G4undNNpdh5so": true, // mudar todas as carteiras conforme o que procura
 	"1BY8GQbnueYofwSuFAT3USAhGjPrkxDdW9": true,
-	"1MVDYgVaSN6iKKEsbzRUAYFrYJadLYZvvZ": true,
+	"1MVDYgVaSN6iKKEsbzRUAYFrYJadLYZvvZ": true,  // carteira 68 bits
 }
 var contador = 0
 
@@ -32,18 +32,18 @@ func geradorChaves() []string {
 
 	for {
 		suffix := make([]byte, 9) // mudar de acordo com a quantidade de bits
-		_, err := rand.Read(suffix)
+		_, err := rand.Read(suffix)//gerar os 17 caracters aleatorios
 		if err != nil {
 			log.Fatalf("Falha ao gerar chave: %v", err)
 		}
 
 		chaveGerada := prefix + hex.EncodeToString(suffix)[:17]  // mudar de acordo com os bits 
-
+									
 		if _, ok := chavesGeradas[chaveGerada]; !ok {
 			chavesGeradas[chaveGerada] = struct{}{}
 			chaves = append(chaves, chaveGerada)
-			contador++
-			return chaves
+			contador++ // +1 contador
+			return chaves //Pv key
 		}
 	}
 }
